@@ -1,0 +1,13 @@
+POST /api/cart/voucher/apply -> 200 OK
+Response:
+{
+  "voucherApplied": true,
+  "discountAmount": 10.0,
+  "cartIsValid": true
+}
+UI State after response:
+{
+  "voucherBadgeVisible": true,
+  "checkoutButtonEnabled": false
+}
+

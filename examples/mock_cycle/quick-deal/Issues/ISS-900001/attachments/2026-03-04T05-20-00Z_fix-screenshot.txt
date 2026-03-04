@@ -1,0 +1,3 @@
+Placeholder for post-fix screenshot evidence.
+In production this would be an image file uploaded by tester.
+

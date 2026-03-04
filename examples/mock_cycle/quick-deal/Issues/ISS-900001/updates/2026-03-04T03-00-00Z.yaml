@@ -1,0 +1,11 @@
+issue_id: ISS-900001
+updated_at: "2026-03-04T03:00:00Z"
+updated_by: QA Nina
+note: Observed in staging after voucher rollout.
+status_from: new
+status_to: new
+attachments:
+  - attachments/2026-03-04T03-00-00Z_frontend-console.log
+  - attachments/2026-03-04T03-00-00Z_network.har.txt
+  - attachments/2026-03-04T03-00-00Z_embedded_1.png
+

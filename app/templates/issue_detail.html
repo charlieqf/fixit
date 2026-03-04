@@ -1,17 +1,29 @@
 {% extends "base.html" %}
+{% block hero %}
+<section class="hero">
+    <div>
+        <h1 class="hero-title">{{ issue.id }}</h1>
+        <div class="hero-meta">{{ issue.title }}</div>
+    </div>
+    <div class="badge status-{{ issue.status }}">{{ issue.status }}</div>
+</section>
+{% endblock %}
 {% block content %}
 <section class="panel">
-    <h1>{{ issue.id }} - {{ issue.title }}</h1>
+    <h3>Issue Summary</h3>
     <p><strong>Type:</strong> {{ issue.type }}</p>
     <p><strong>Status:</strong> <span class="badge status-{{ issue.status }}">{{ issue.status }}</span></p>
     <p><strong>Reporter:</strong> {{ issue.reported_by }}</p>
     <p><strong>Created:</strong> {{ issue.created_at }}</p>
     <p><strong>Updated:</strong> {{ issue.updated_at }}</p>
+    <p><strong>Main File:</strong> <a class="muted-link" href="{{ issue_main_url }}" target="_blank">issue_main.md</a></p>
+    <p><strong>Machine File:</strong> <a class="muted-link" href="{{ issue_main_json_url }}" target="_blank">issue_main.json</a></p>
+    <p><strong>AI Brief:</strong> <a class="muted-link" href="{{ ai_brief_url }}" target="_blank">ai_brief.md</a></p>
     <article class="description">{{ issue.description }}</article>
 </section>
 
 <section class="panel">
-    <h2>Update Issue</h2>
+    <h3>Append Update</h3>
     {% if error %}
     <div class="alert error">{{ error }}</div>
     {% endif %}
@@ -50,7 +62,7 @@
 </section>
 
 <section class="panel">
-    <h2>Update History</h2>
+    <h3>Update History</h3>
     <div class="timeline">
         {% for update in updates %}
         <article class="entry">
@@ -84,4 +96,3 @@ function copyText(id) {
 }
 </script>
 {% endblock %}
-

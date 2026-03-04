@@ -1,0 +1,18 @@
+id: ISS-900001
+title: Checkout button stays disabled after voucher apply
+type: bug
+status: verified_closed
+reported_by: QA Nina
+created_at: "2026-03-04T03:00:00Z"
+updated_at: "2026-03-05T01:15:00Z"
+description: "Checkout button remains disabled after voucher application even when cart is valid."
+description_markdown: |
+  ### Problem
+
+  When a user applies a valid voucher, totals recalculate but the `Proceed to Payment`
+  button remains disabled.
+description_html: "<h3>Problem</h3><p>When a user applies a valid voucher, totals recalculate but the <code>Proceed to Payment</code> button remains disabled.</p>"
+issue_main_file: issue_main.md
+issue_main_json_file: issue_main.json
+ai_brief_file: ai_brief.md
+

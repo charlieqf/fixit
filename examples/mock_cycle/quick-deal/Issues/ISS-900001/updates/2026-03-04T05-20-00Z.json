@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "event_type": "update",
+  "issue_id": "ISS-900001",
+  "timestamp": "2026-03-04T05:20:00Z",
+  "actor": "Dev Arun",
+  "status_from": "in_progress",
+  "status_to": "fixed_pending_verify",
+  "note": "PR merged. Added state recompute after voucher apply action and new unit test.",
+  "attachments": [
+    {
+      "path": "attachments/2026-03-04T05-20-00Z_fix-screenshot.txt",
+      "filename": "2026-03-04T05-20-00Z_fix-screenshot.txt",
+      "mime_type": "text/plain",
+      "size_bytes": 112,
+      "sha256": "cae18a1bcf94af9879cb17a1d200f061c496f6104f944385d039783f365f6efa",
+      "source": "uploaded",
+      "role": "attachment"
+    }
+  ]
+}
+

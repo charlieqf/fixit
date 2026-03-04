@@ -1,7 +1,16 @@
 {% extends "base.html" %}
+{% block hero %}
+<section class="hero">
+    <div>
+        <h1 class="hero-title">Issue Tracker</h1>
+        <div class="hero-meta">Filtered results: {{ issues|length }} issue(s)</div>
+    </div>
+    <div class="badge">List View</div>
+</section>
+{% endblock %}
 {% block content %}
 <section class="panel">
-    <h1>Issues</h1>
+    <h3>Filter Issues</h3>
     <form method="get" action="/issues" class="filters">
         <input type="text" name="q" value="{{ filters.q }}" placeholder="Search id/title/description">
         <select name="status">
@@ -21,32 +30,34 @@
 </section>
 
 <section class="panel">
-    <table>
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Title</th>
-            <th>Type</th>
-            <th>Status</th>
-            <th>Reporter</th>
-            <th>Updated</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for issue in issues %}
-        <tr>
-            <td><a href="/issues/{{ issue.id }}">{{ issue.id }}</a></td>
-            <td>{{ issue.title }}</td>
-            <td><span class="badge">{{ issue.type }}</span></td>
-            <td><span class="badge status-{{ issue.status }}">{{ issue.status }}</span></td>
-            <td>{{ issue.reported_by }}</td>
-            <td>{{ issue.updated_at }}</td>
-        </tr>
-        {% else %}
-        <tr><td colspan="6">No issues found.</td></tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <h3>Issue Records</h3>
+    <div class="table-wrap">
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Type</th>
+                <th>Status</th>
+                <th>Reporter</th>
+                <th>Updated</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for issue in issues %}
+            <tr>
+                <td><a class="muted-link" href="/issues/{{ issue.id }}">{{ issue.id }}</a></td>
+                <td>{{ issue.title }}</td>
+                <td><span class="badge">{{ issue.type }}</span></td>
+                <td><span class="badge status-{{ issue.status }}">{{ issue.status }}</span></td>
+                <td>{{ issue.reported_by }}</td>
+                <td>{{ issue.updated_at }}</td>
+            </tr>
+            {% else %}
+            <tr><td colspan="6">No issues found.</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </section>
 {% endblock %}
-

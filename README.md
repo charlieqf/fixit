@@ -6,11 +6,18 @@ Each submit/update writes files under `quick-deal/Issues` and performs a git com
 ## Features
 
 - Create issues with type, description, notes, and attachments
+- Rich-text description with embedded images
+- Canonical machine-readable `issue_main.json` per issue
+- Attachment hashing and `attachments/manifest.json`
+- Append-only updates in `updates/*.json` and `updates/*.md`
+- Auto-generated `ai_brief.md` for coding agents
+- JSON-native API endpoints for agent integrations
 - Update issue status/notes/attachments
 - List/filter all issues
 - View issue detail and update timeline
 - No tester login required (name fields only)
 - Direct push to branch `project-meituan`
+- On submit, generate structured `issue_main.md` under each issue folder
 
 ## Tech stack
 
@@ -33,6 +40,56 @@ MAX_FILE_MB=10
 MAX_FILES_PER_SUBMIT=10
 ```
 
+## Issue folder artifacts
+
+Each issue is self-contained in one subfolder:
+
+```text
+quick-deal/Issues/ISS-000123/
+  issue.yaml
+  issue_main.md
+  issue_main.json
+  ai_brief.md
+  attachments/
+    manifest.json
+    ...
+  updates/
+    <timestamp>.yaml
+    <timestamp>.json
+    <timestamp>.md
+```
+
+## AI-ready status flow
+
+Recommended statuses:
+
+- `new`
+- `needs_info`
+- `ready_for_fix`
+- `in_progress`
+- `fixed_pending_verify`
+- `verified_closed`
+
+Quality gate:
+
+- Moving to `ready_for_fix` requires:
+  - repro steps
+  - expected result
+  - actual result
+  - acceptance criteria
+
+## Mock cycle
+
+A full mock submit/edit/solve cycle is provided at:
+
+- `examples/mock_cycle/quick-deal/Issues/ISS-900001`
+
+You can also generate a fresh mock cycle locally:
+
+```bash
+python scripts/mock_cycle_test.py --repo-path ./tmp/mock_cycle_repo
+```
+
 ## Local run
 
 ```bash
@@ -43,6 +100,18 @@ uvicorn app.main:app --reload --port 8010
 ```
 
 Open `http://127.0.0.1:8010/issues`.
+
+## API for agents
+
+Form endpoints (browser-friendly):
+
+- `POST /api/issues`
+- `POST /api/issues/{issue_id}/updates`
+
+JSON endpoints (agent-friendly):
+
+- `POST /api/issues/json`
+- `POST /api/issues/{issue_id}/updates/json`
 
 ## CentOS deployment runbook
 

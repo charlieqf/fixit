@@ -4,21 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tester Issue Logger</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,600;6..72,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
-<header class="topbar">
-    <div class="inner">
-        <a class="brand" href="/issues">Tester Issue Logger</a>
-        <nav>
-            <a href="/issues">All Issues</a>
-            <a href="/issues/new">Submit Issue</a>
-        </nav>
-    </div>
-</header>
-<main class="inner main">
-    {% block content %}{% endblock %}
-</main>
+<div class="page">
+    <header class="nav">
+        <a class="brand" href="/issues">Issue Desk</a>
+        <div class="panel-header">
+            <a class="btn nav-btn" href="/issues">All Issues</a>
+            <a class="btn nav-btn" href="/issues/new">Submit Issue</a>
+            <span class="tag">QA Workflow</span>
+        </div>
+    </header>
+    {% block hero %}{% endblock %}
+    <main class="main-content">
+        {% block content %}{% endblock %}
+    </main>
+</div>
 </body>
 </html>
-

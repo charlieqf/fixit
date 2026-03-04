@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.0",
+  "event_type": "update",
+  "issue_id": "ISS-900001",
+  "timestamp": "2026-03-05T01:15:00Z",
+  "actor": "QA Nina",
+  "status_from": "fixed_pending_verify",
+  "status_to": "verified_closed",
+  "note": "Retested on staging and production canary. Behavior is correct now.",
+  "attachments": []
+}
+

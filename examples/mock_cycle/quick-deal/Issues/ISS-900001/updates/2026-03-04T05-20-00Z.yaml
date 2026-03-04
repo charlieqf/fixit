@@ -1,0 +1,9 @@
+issue_id: ISS-900001
+updated_at: "2026-03-04T05:20:00Z"
+updated_by: Dev Arun
+note: PR merged. Added state recompute after voucher apply action and new unit test.
+status_from: in_progress
+status_to: fixed_pending_verify
+attachments:
+  - attachments/2026-03-04T05-20-00Z_fix-screenshot.txt
+

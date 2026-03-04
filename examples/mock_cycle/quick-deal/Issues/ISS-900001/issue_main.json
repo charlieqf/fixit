@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.0",
+  "issue_id": "ISS-900001",
+  "metadata": {
+    "title": "Checkout button stays disabled after voucher apply",
+    "issue_type": "bug",
+    "status": "verified_closed",
+    "reported_by": "QA Nina",
+    "created_at": "2026-03-04T03:00:00Z",
+    "updated_at": "2026-03-05T01:15:00Z"
+  },
+  "report": {
+    "problem_summary": "Valid voucher flow recalculates totals but checkout CTA stays disabled for guest checkout.",
+    "description_markdown": "### Problem\\n\\nWhen a user applies a valid voucher, totals recalculate but the `Proceed to Payment` button remains disabled.\\n\\n![checkout-disabled](attachments/2026-03-04T03-00-00Z_embedded_1.png)",
+    "description_html": "<h3>Problem</h3><p>When a user applies a valid voucher, totals recalculate but the <code>Proceed to Payment</code> button remains disabled.</p><p><img alt=\"checkout-disabled\" src=\"attachments/2026-03-04T03-00-00Z_embedded_1.png\"></p>",
+    "description_text": "When a user applies a valid voucher, totals recalculate but the Proceed to Payment button remains disabled.",
+    "repro_steps": [
+      "Open cart as guest with 2 eligible items.",
+      "Apply voucher code SAVE10.",
+      "Observe totals update and voucher badge shown.",
+      "Try clicking Proceed to Payment."
+    ],
+    "expected_result": "Checkout button should be enabled after successful voucher apply and valid cart.",
+    "actual_result": "Checkout button remains disabled; cannot continue to payment.",
+    "environment": "web-staging, Chrome 122, build 2026.03.04.1, CentOS QA env",
+    "impact": "All guest users using voucher checkout on web.",
+    "suspected_component": "frontend/cart/checkoutButtonState",
+    "acceptance_criteria": [
+      "Button enables within 500ms after voucher success response.",
+      "Unit test covers state transition after voucher apply action.",
+      "E2E test verifies guest voucher checkout can proceed."
+    ]
+  },
+  "links": {
+    "related_paths": [
+      "frontend/src/features/cart/checkout.tsx",
+      "frontend/src/features/cart/useCheckoutState.ts"
+    ],
+    "related_commits": [
+      "1a2b3c4"
+    ],
+    "related_issue_ids": [
+      "ISS-899940"
+    ]
+  },
+  "initial_notes": "Observed in staging after voucher rollout.",
+  "attachments_manifest_file": "attachments/manifest.json",
+  "attachments": [
+    {
+      "path": "attachments/2026-03-04T03-00-00Z_frontend-console.log",
+      "filename": "2026-03-04T03-00-00Z_frontend-console.log",
+      "mime_type": "text/plain",
+      "size_bytes": 742,
+      "sha256": "b9020d262f3fbb26d1f26419ba4b1227ec95e43f646f2f6c4d03e85b8f8f8114",
+      "source": "uploaded",
+      "role": "attachment"
+    },
+    {
+      "path": "attachments/2026-03-04T03-00-00Z_network.har.txt",
+      "filename": "2026-03-04T03-00-00Z_network.har.txt",
+      "mime_type": "text/plain",
+      "size_bytes": 1210,
+      "sha256": "d4a11fd89653b9be5b8b5e8de0f4038ff9b029c4ed392e4028a2719dddfba5d4",
+      "source": "uploaded",
+      "role": "attachment"
+    },
+    {
+      "path": "attachments/2026-03-04T03-00-00Z_embedded_1.png",
+      "filename": "2026-03-04T03-00-00Z_embedded_1.png",
+      "mime_type": "image/png",
+      "size_bytes": 58032,
+      "sha256": "2c8f2859d8fcb6f20f8a724c7a92b82c9f8bc07e63f72dd2774eaf0fbfaabc0b",
+      "source": "embedded",
+      "role": "description_image"
+    }
+  ],
+  "artifacts": {
+    "issue_main_md": "issue_main.md",
+    "issue_main_json": "issue_main.json",
+    "ai_brief_md": "ai_brief.md"
+  }
+}
+
