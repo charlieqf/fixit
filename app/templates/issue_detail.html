@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="panel">
+    <h1>{{ issue.id }} - {{ issue.title }}</h1>
+    <p><strong>Type:</strong> {{ issue.type }}</p>
+    <p><strong>Status:</strong> <span class="badge status-{{ issue.status }}">{{ issue.status }}</span></p>
+    <p><strong>Reporter:</strong> {{ issue.reported_by }}</p>
+    <p><strong>Created:</strong> {{ issue.created_at }}</p>
+    <p><strong>Updated:</strong> {{ issue.updated_at }}</p>
+    <article class="description">{{ issue.description }}</article>
+</section>
+
+<section class="panel">
+    <h2>Update Issue</h2>
+    {% if error %}
+    <div class="alert error">{{ error }}</div>
+    {% endif %}
+    {% if result %}
+    <div class="alert success">
+        <strong>Update submitted.</strong>
+        <div>Commit SHA: <code id="commitSha">{{ result.commit_sha }}</code></div>
+        <div>Commit Message: <code id="commitMessage">{{ result.commit_message }}</code></div>
+        <div class="row">
+            <button type="button" onclick="copyText('commitSha')">Copy SHA</button>
+            <button type="button" onclick="copyText('commitMessage')">Copy Message</button>
+        </div>
+    </div>
+    {% endif %}
+
+    <form action="/issues/{{ issue.id }}/updates" method="post" enctype="multipart/form-data" class="stack">
+        <label>Updater Name
+            <input type="text" name="updated_by" required>
+        </label>
+        <label>Status
+            <select name="status">
+                <option value="">No change</option>
+                {% for s in statuses %}
+                <option value="{{ s }}" {% if s == issue.status %}selected{% endif %}>{{ s }}</option>
+                {% endfor %}
+            </select>
+        </label>
+        <label>Note
+            <textarea name="note" rows="5" placeholder="What changed?"></textarea>
+        </label>
+        <label>Add Screenshots / Logs
+            <input type="file" name="files" multiple>
+        </label>
+        <button type="submit">Submit Update</button>
+    </form>
+</section>
+
+<section class="panel">
+    <h2>Update History</h2>
+    <div class="timeline">
+        {% for update in updates %}
+        <article class="entry">
+            <div class="entry-head">
+                <strong>{{ update.updated_at }}</strong>
+                <span>by {{ update.updated_by }}</span>
+            </div>
+            <p>Status: {{ update.status_from }} -> {{ update.status_to }}</p>
+            {% if update.note %}
+            <p>{{ update.note }}</p>
+            {% endif %}
+            {% if update.attachments %}
+            <ul>
+                {% for att in update.attachments %}
+                <li><a href="/raw/{{ issue.id }}/{{ att }}" target="_blank">{{ att }}</a></li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </article>
+        {% else %}
+        <p>No updates yet.</p>
+        {% endfor %}
+    </div>
+</section>
+
+<script>
+function copyText(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    navigator.clipboard.writeText(el.innerText);
+}
+</script>
+{% endblock %}
+

@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="panel">
+    <h1>Issues</h1>
+    <form method="get" action="/issues" class="filters">
+        <input type="text" name="q" value="{{ filters.q }}" placeholder="Search id/title/description">
+        <select name="status">
+            <option value="">All statuses</option>
+            {% for s in statuses %}
+            <option value="{{ s }}" {% if filters.status == s %}selected{% endif %}>{{ s }}</option>
+            {% endfor %}
+        </select>
+        <select name="type">
+            <option value="">All types</option>
+            {% for t in issue_types %}
+            <option value="{{ t }}" {% if filters.type == t %}selected{% endif %}>{{ t }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Filter</button>
+    </form>
+</section>
+
+<section class="panel">
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Type</th>
+            <th>Status</th>
+            <th>Reporter</th>
+            <th>Updated</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for issue in issues %}
+        <tr>
+            <td><a href="/issues/{{ issue.id }}">{{ issue.id }}</a></td>
+            <td>{{ issue.title }}</td>
+            <td><span class="badge">{{ issue.type }}</span></td>
+            <td><span class="badge status-{{ issue.status }}">{{ issue.status }}</span></td>
+            <td>{{ issue.reported_by }}</td>
+            <td>{{ issue.updated_at }}</td>
+        </tr>
+        {% else %}
+        <tr><td colspan="6">No issues found.</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</section>
+{% endblock %}
+

@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="panel">
+    <h1>Submit New Issue</h1>
+    {% if error %}
+    <div class="alert error">{{ error }}</div>
+    {% endif %}
+    {% if result %}
+    <div class="alert success">
+        <strong>Issue submitted.</strong>
+        <div>Issue: <a href="{{ result.issue_url }}">{{ result.issue_id }}</a></div>
+        <div>Commit SHA: <code id="commitSha">{{ result.commit_sha }}</code></div>
+        <div>Commit Message: <code id="commitMessage">{{ result.commit_message }}</code></div>
+        <div class="row">
+            <button type="button" onclick="copyText('commitSha')">Copy SHA</button>
+            <button type="button" onclick="copyText('commitMessage')">Copy Message</button>
+        </div>
+    </div>
+    {% endif %}
+
+    <form action="/issues/new" method="post" enctype="multipart/form-data" class="stack">
+        <label>Reporter Name
+            <input type="text" name="reported_by" required>
+        </label>
+        <label>Title
+            <input type="text" name="title" required>
+        </label>
+        <label>Issue Type
+            <select name="issue_type" required>
+                {% for t in issue_types %}
+                <option value="{{ t }}">{{ t }}</option>
+                {% endfor %}
+            </select>
+        </label>
+        <label>Status
+            <select name="status">
+                {% for s in statuses %}
+                <option value="{{ s }}" {% if s == 'new' %}selected{% endif %}>{{ s }}</option>
+                {% endfor %}
+            </select>
+        </label>
+        <label>Description
+            <textarea name="description" rows="8" required></textarea>
+        </label>
+        <label>Notes
+            <textarea name="notes" rows="4"></textarea>
+        </label>
+        <label>Screenshots / Logs
+            <input type="file" name="files" multiple>
+        </label>
+        <button type="submit">Submit Issue</button>
+    </form>
+</section>
+
+<script>
+function copyText(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const txt = el.innerText;
+    navigator.clipboard.writeText(txt);
+}
+</script>
+{% endblock %}
+
